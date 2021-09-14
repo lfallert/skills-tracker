@@ -9,58 +9,68 @@ public class SkillsController {
 
     @GetMapping("/")
     @ResponseBody
-    public String displaySkillsList() {
-        return "<h1>Skills Tracker</h3>" +
-                "<h2>Languages</h2>" +
+    public String index() {
+        return "<h1>Skills Tracker</h1>" +
+                "<h2>We have a few skills we would like to learn. Here is a list!</h2>" +
                 "<ol>" +
-                "<li>Java</li>" +
-                "<li>JavaScript</li>" +
-                "<li>Python</li>" +
+                "<li>Java</l1>" +
+                "<li>JavaScript</l1>" +
+                "<li>Python</l1>" +
                 "</ol>";
     }
 
     @GetMapping("/form")
     @ResponseBody
-    public String skillsForm() {
-        return "<p>Name: </p>" +
-                "<input type='text' name='name'>" +
-                "<form action='form' method='posting'>" +
-                "<p>My favorite language:</p>" +
+    public String displayForm() {
+        return "<form method='post'>" +
+                "<label>Name:</label>" +
+                "<input type='text' name='name'/>" +
+                "<br><label>My favorite language:</label><br>" +
                 "<select name='first'>" +
-                "<option value=java''> Java </option>" +
-                "<option value='javascript'> JavaScript </option>" +
-                "<option value='python'> Python </option>" +
+                "<option value='java'>Java</option>" +
+                "<option value='javascript'>JavaScript</option>" +
+                "<option value='python'>Python</option>" +
                 "</select>" +
-
-                "<p>My second favorite language:</p>" +
+                "<br><label>My favorite language:</label><br>" +
                 "<select name='second'>" +
-                "<option value='java'> Java </option>" +
-                "<option value='javascript'> JavaScript </option>" +
-                "<option value='python'> Python </option>" +
+                "<option value='java'>Java</option>" +
+                "<option value='javascript'>JavaScript</option>" +
+                "<option value='python'>Python</option>" +
                 "</select>" +
-
-                "<p>My third favorite language:</p>" +
+                "<br><label>My favorite language:</label><br>" +
                 "<select name='third'>" +
-                "<option value='java'> Java </option>" +
-                "<option value='javascript'> JavaScript </option>" +
-                "<option value='python'> Python </option>" +
-                "</select>" +
-
-                "<input type='submit' value='submit'>" +
-                "</form>"
-                ;
+                "<option value='java'>Java</option>" +
+                "<option value='javascript'>JavaScript</option>" +
+                "<option value='python'>Python</option>" +
+                "</select><br>" +
+                "<input type='submit' value='Submit'/>" +
+                "</form>";
     }
 
-    @PostMapping("form")
+    @PostMapping("/form")
     @ResponseBody
-    public String listFavoriteSkills(@RequestParam String name, @RequestParam String first, @RequestParam String second, @RequestParam String third) {
-        return "<h1>" + name + "</h1>" +
+    public String processForm(@RequestParam String name,
+                              @RequestParam String first,
+                              @RequestParam String second,
+                              @RequestParam String third) {
+
+
+        return "<h1>" + name + "</h1><br>" +
                 "<ol>" +
-                "<li>" + first + "</li>" +
-                "<li>" + second + "</li>" +
-                "<li>" + third + "</li>" +
-                "</ol>"
-                ;
+                "<li>" + processReturn(first) + "</li>" +
+                "<li>" + processReturn(second) + "</li>" +
+                "<li>" + processReturn(third) + "</li>" +
+                "<ol>";
+    }
+
+    private String processReturn(String value) {
+        if(value.equals("java")){
+            return "Java";
+        } else if (value.equals("javascript")) {
+            return "JavaScript";
+        } else {
+            return "Python";
+        }
     }
 
 }
